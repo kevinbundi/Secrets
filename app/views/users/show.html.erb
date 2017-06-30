@@ -1,0 +1,50 @@
+
+	<div class="col-md-7">
+		<div class="col-md-11">
+			<form action="/secrets" method="post">
+				<h3>New Secret</h3>
+				<% if flash[:secret_errors] %>
+					<% flash[:secret_errors].each do |e| %>
+						<p style="color:red"><%=e%></p>
+					<%end%>
+				<%end%>
+					<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+				<div class="form-group">
+					<textarea name="content" class="form-control" rows="5"></textarea>
+				</div>
+				<div class="form-group">
+					<input type="submit" value="create secret" class="btn btn-default col-md-offset-9">
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="your_secrets">
+		<div class="secrets col-md-6">
+			<h4>Your Secrets</h4>
+			<% @secrets.each do |secret| %>
+				<form action="/user_secrets/<%=secret.id%>" method="post" class="erase">
+					<input type="hidden" name="_method" value="delete">
+					<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+						<div class="form-group">
+							<%= secret.content %>
+							<a href="/secrets/<%=secret.id%>/edit">Edit</a> 
+							<div class="erase">
+								<input type="submit" value="delete">
+							</div>
+						</div>
+					</form>
+				 
+				</p>
+			<%end%> 
+		</div>
+
+		<div class="secrets_liked col-md-6">
+			<h4>Secrets Liked</h4>
+			<% @secrets_liked.each do |s| %>
+				<div class="form-group">
+					<%= s.content %>
+					<p><%= Secret.find(s.id).likes.count %> likes</p>
+				</div>
+			<%end%>
+		</div>
+	</div>

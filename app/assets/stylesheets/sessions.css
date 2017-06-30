@@ -1,0 +1,14 @@
+
+.login{
+	border: 1px solid gray;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.link p{
+	margin-top: 10px;
+	text-align: center;
+}
+.h1{
+	text-align: center;
+}
